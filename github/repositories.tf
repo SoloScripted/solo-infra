@@ -13,6 +13,12 @@ locals {
       protect_production = true
     }
 
+    flutter-shared-components = {
+      description = "Shared Flutter components and utilities for SoloScripted projects."
+      visibility  = "public"
+      topics      = ["flutter", "dart", "flutter-package", "components", "ui-kit"]
+    }
+
     solo-infra = {
       description = "Core infrastructure for SoloScripted using Terraform. Provisions GitHub integrations and AWS environment."
       visibility  = "private"

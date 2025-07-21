@@ -28,6 +28,7 @@ resource "github_repository" "this" {
   visibility                  = each.value.visibility
   vulnerability_alerts        = true
   web_commit_signoff_required = true
+  auto_init                   = true
 
   dynamic "pages" {
     for_each = try(each.value.pages, null) != null ? [each.value.pages] : []

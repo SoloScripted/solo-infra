@@ -80,6 +80,15 @@ resource "github_branch_protection" "this" {
     ]
   }
 
+  dynamic "required_status_checks" {
+    for_each = try(each.value.required_checks, null) != null ? [1] : []
+
+    content {
+      strict   = true
+      contexts = each.value.required_checks
+    }
+  }
+
   depends_on = [
     github_repository.this
   ]
@@ -108,6 +117,7 @@ resource "github_repository_environment" "production" {
       data.github_user.current.id
     ]
   }
+
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
@@ -117,4 +127,3 @@ resource "github_repository_environment" "production" {
     github_repository.this
   ]
 }
-

@@ -3,6 +3,7 @@ locals {
     ".github" = {
       description              = "SoloScripted"
       visibility               = "public"
+      topics                   = ["github", "community", "organization-files"]
       disable_security_updates = true
     }
 
@@ -11,17 +12,20 @@ locals {
       visibility         = "public"
       topics             = ["aws", "cdk", "terraform", "cloud", "infrastructure", "cloud-infrastructure"]
       protect_production = true
+      required_checks    = ["Lint and Format Check", "cdk-diff"]
     }
 
     flutter-shared-components = {
-      description = "Shared Flutter components and utilities for SoloScripted projects."
-      visibility  = "public"
-      topics      = ["flutter", "dart", "flutter-package", "components", "ui-kit"]
+      description     = "Shared Flutter components and utilities for SoloScripted projects."
+      visibility      = "public"
+      topics          = ["flutter", "dart", "flutter-package", "components", "ui-kit"]
+      required_checks = ["Run Linter"]
     }
 
     solo-infra = {
       description = "Core infrastructure for SoloScripted using Terraform. Provisions GitHub integrations and AWS environment."
       visibility  = "private"
+      topics      = ["terraform", "aws", "infrastructure-as-code", "github"]
     }
 
     ss-docs = {
@@ -32,7 +36,7 @@ locals {
         build_type = "legacy"
         cname      = "soloscripted.com"
       }
-      disable_security_updates = true
+      topics = ["documentation", "soloscripted"]
     }
 
     sudokode = {
@@ -40,7 +44,10 @@ locals {
       visibility  = "public"
       pages = {
         build_type = "workflow"
+        cname      = "sudokode.soloscripted.com"
       }
+      topics          = ["flutter", "dart", "sudoku", "game", "mobile", "web", "ai"]
+      required_checks = ["build"]
     }
   }
 }

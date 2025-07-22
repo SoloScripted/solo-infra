@@ -28,6 +28,7 @@ resource "github_repository" "this" {
   visibility                  = each.value.visibility
   vulnerability_alerts        = true
   web_commit_signoff_required = true
+  auto_init                   = true
 
   dynamic "pages" {
     for_each = try(each.value.pages, null) != null ? [each.value.pages] : []
@@ -79,6 +80,15 @@ resource "github_branch_protection" "this" {
     ]
   }
 
+  dynamic "required_status_checks" {
+    for_each = try(each.value.required_checks, null) != null ? [1] : []
+
+    content {
+      strict   = true
+      contexts = each.value.required_checks
+    }
+  }
+
   depends_on = [
     github_repository.this
   ]
@@ -107,6 +117,7 @@ resource "github_repository_environment" "production" {
       data.github_user.current.id
     ]
   }
+
   deployment_branch_policy {
     protected_branches     = true
     custom_branch_policies = false
@@ -116,4 +127,3 @@ resource "github_repository_environment" "production" {
     github_repository.this
   ]
 }
-

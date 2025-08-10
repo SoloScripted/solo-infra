@@ -11,7 +11,7 @@ terraform {
   backend "s3" {
     bucket       = "storagestack-terraformstatebucket7379689d-ds1j1hn5qpbo"
     region       = "eu-north-1"
-    key          = "github/remote.state"
+    key          = "github.state"
     use_lockfile = true
   }
 }

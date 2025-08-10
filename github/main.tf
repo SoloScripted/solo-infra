@@ -2,6 +2,24 @@ data "github_user" "current" {
   username = ""
 }
 
+data "terraform_remote_state" "iam" {
+  backend = "s3"
+  config = {
+    bucket = "storagestack-terraformstatebucket7379689d-ds1j1hn5qpbo"
+    key    = "iam.state"
+    region = "eu-north-1"
+  }
+}
+
+data "terraform_remote_state" "web" {
+  backend = "s3"
+  config = {
+    bucket = "storagestack-terraformstatebucket7379689d-ds1j1hn5qpbo"
+    key    = "web.state"
+    region = "eu-north-1"
+  }
+}
+
 resource "github_repository" "this" {
   for_each = local.repositories
 
@@ -122,6 +140,30 @@ resource "github_repository_environment" "production" {
     protected_branches     = true
     custom_branch_policies = false
   }
+
+  depends_on = [
+    github_repository.this
+  ]
+}
+
+resource "github_actions_secret" "this" {
+  for_each = local.repository_secrets
+
+  repository      = each.value.repo_key
+  secret_name     = each.value.secret_name
+  plaintext_value = each.value.value
+
+  depends_on = [
+    github_repository.this
+  ]
+}
+
+resource "github_actions_variable" "this" {
+  for_each = local.repository_variables
+
+  repository    = each.value.repo_key
+  variable_name = each.value.variable_name
+  value         = each.value.value
 
   depends_on = [
     github_repository.this

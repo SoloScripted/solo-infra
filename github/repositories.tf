@@ -56,7 +56,7 @@ locals {
       description        = "AI-driven Sudoku game built with Flutter & Dart for iOS, Android, and Web."
       visibility         = "public"
       protect_production = true
-      topics             = ["flutter", "dart", "sudoku", "game", "mobile", "web", "ai"]
+      topics             = ["flutter", "dart", "sudoku", "game", "mobile", "web"]
       required_checks    = ["build"]
       secrets = {
         AWS_ADMIN_ROLE_ARN = data.terraform_remote_state.iam.outputs.github_actions_role_arns["sudokode-production"]

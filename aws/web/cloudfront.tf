@@ -26,7 +26,7 @@ resource "aws_cloudfront_distribution" "this" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
   http_version        = "http2and3"
-  price_class = "PriceClass_100"
+  price_class         = "PriceClass_100"
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]

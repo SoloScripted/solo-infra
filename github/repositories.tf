@@ -31,7 +31,7 @@ locals {
 
     solo-infra = {
       description = "Core infrastructure for SoloScripted using Terraform. Provisions GitHub integrations and AWS environment."
-      visibility  = "private"
+      visibility  = "public"
       topics      = ["terraform", "aws", "infrastructure-as-code", "github"]
     }
 

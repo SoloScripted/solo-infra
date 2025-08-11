@@ -90,7 +90,7 @@ resource "github_branch_protection" "this" {
 
   required_pull_request_reviews {
     dismiss_stale_reviews           = true
-    require_last_push_approval      = true
+    require_last_push_approval      = !try(each.value.disable_last_push_approval, false)
     required_approving_review_count = 1
     restrict_dismissals             = true
     pull_request_bypassers = [

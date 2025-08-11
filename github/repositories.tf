@@ -30,10 +30,12 @@ locals {
     }
 
     solo-infra = {
-      description     = "Core infrastructure for SoloScripted using Terraform. Provisions GitHub integrations and AWS environment."
-      visibility      = "public"
-      topics          = ["terraform", "aws", "infrastructure-as-code", "github", "s3", "cloudfront", "iam"]
-      required_checks = ["atlantis/plan", "atlantis/apply"]
+      description                 = "Core infrastructure for SoloScripted using Terraform. Provisions GitHub integrations and AWS environment."
+      visibility                  = "public"
+      topics                      = ["terraform", "aws", "infrastructure-as-code", "github", "s3", "cloudfront", "iam"]
+      required_checks             = ["atlantis/plan", "atlantis/apply"]
+      allow_merge_commits_on_main = true
+      disable_last_push_approval  = true
     }
 
     ss-docs = {

@@ -86,11 +86,11 @@ resource "github_branch_protection" "this" {
   pattern                         = "main"
   require_conversation_resolution = true
   require_signed_commits          = true
-  required_linear_history         = true
+  required_linear_history         = !try(each.value.allow_merge_commits_on_main, false)
 
   required_pull_request_reviews {
     dismiss_stale_reviews           = true
-    require_last_push_approval      = true
+    require_last_push_approval      = !try(each.value.disable_last_push_approval, false)
     required_approving_review_count = 1
     restrict_dismissals             = true
     pull_request_bypassers = [

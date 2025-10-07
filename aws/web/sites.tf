@@ -8,5 +8,9 @@ locals {
       domains     = ["sudokode.soloscripted.com"]
       origin_path = "/sudokode"
     }
+    "balango" = {
+      domains     = ["balango.soloscripted.com"]
+      origin_path = "/balango"
+    }
   }
 }

@@ -24,6 +24,13 @@ locals {
         policies      = [data.terraform_remote_state.web.outputs.site_deploy_policy_arns["soloscripted"]]
       }
     }
+    "balango" = {
+      "production" = {
+        description   = "IAM role for deploying the balango site to the production environment."
+        ref_condition = "repo:SoloScripted/balango:environment:production"
+        policies      = [data.terraform_remote_state.web.outputs.site_deploy_policy_arns["balango"]]
+      }
+    }
     "sudokode" = {
       "production" = {
         description   = "IAM role for deploying the sudokode site to the production environment."

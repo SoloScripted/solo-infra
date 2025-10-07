@@ -22,6 +22,22 @@ locals {
       }
     }
 
+    balango = {
+      description        = "A hyper-casual one-finger game about balancing a stick. Keep the stick upright as long as possible as the difficulty increases."
+      visibility         = "public"
+      protect_production = true
+      topics             = ["flutter", "dart", "game", "mobile-game", "hyper-casual", "one-finger-game", "balance-game"]
+      required_checks    = ["build"]
+      secrets = {
+        AWS_ADMIN_ROLE_ARN = data.terraform_remote_state.iam.outputs.github_actions_role_arns["balango-production"]
+      }
+      variables = {
+        AWS_REGION                     = "eu-north-1"
+        AWS_S3_SITE_BUCKET_NAME        = data.terraform_remote_state.web.outputs.web_assets_bucket_id
+        AWS_CLOUDFRONT_DISTRIBUTION_ID = data.terraform_remote_state.web.outputs.cloudfront_distribution_ids["balango"]
+      }
+    }
+
     flutter-shared-components = {
       description     = "Shared Flutter components and utilities for SoloScripted projects."
       visibility      = "public"
